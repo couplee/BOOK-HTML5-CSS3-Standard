@@ -1,6 +1,83 @@
+/* 最初に定義しておくべきスタイルここから */
+@charset "UTF-8";
+
+html {
+  font-size: 62.5%;  /* 主要なブラウザのデフォルトフォントサイズの16pxとかけて、計算がしやすくなる10pxにするため。16px×62.5%=10px */
+}
+
+body {
+  color: #333;
+  font-size: 1.2rem;  /* htmlが10pxだから12pxになる。※emは親要素のfont-sizeを基準にするが、remはhtmlのfont-sizeを基準にする */
+  font-family: "Hiragino KaKu Gothic ProN", Meiryo, sans-serif;  /* "Hiragino KaKu Gothic ProN"はMac向け、MeiryoはWindows向け */
+}
+
+*, *::before, *::after {  /* *はすべての要素を表す。*::beforeや*::afterみたいに他のセレクタと組み合わせることができる */
+  box-sizing: border-box;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #d03c56;
+  text-decoration: none;  /* 元々表示されるした線を外す */
+}
+/* 最初に定義しておくべきスタイルここまで */
+
+
+
 .header {
   width: 100%;
+  padding: 28px 0 10px;
+  background: url('../images/bg-header.gif') repeat-x;  /* 幅1pxの画像を横方向に敷き詰めて、幅いっぱいのストライプを表示する。この方法でページ全体のファイルサイズを削減することができる */
+  box-shadow: 0 0 10px 1px #e3e3e3;  /* 要素に影をつける。書き順は右方向のずれ、下方向のずれ、ぼかしの大きさ(省略可)、拡張の大きさ(影の縮小/拡大。省略可)、影の色。右方向のずれ、下方向のずれ、拡張の大きさには負の値を指定できる。内側に影をつける場合はinset使用(P.35確認) */
 }
+
+.logo {
+  width: 225px;
+  height: 56px;
+  margin: 0 auto;
+  background: url('../images/logo.png') no-repeat;
+  /* 以下3行は画像の上にテキスト(SAMPLE SITE)を表示させないための記述 */
+  overflow: hidden;  /* テキストの折り返しを制御する。nowrap=折り返さない */
+  text-indent: 100%;  /* インデント幅を指定。100%の場合、テキストの左に.logo幅分のインデントがとられて、テキストのSAMPLE SITEが折り返って、下に改行されるが、上1行を記述してるから、テキストが折り返らずに要素の外に押し出される */
+  white-space: nowrap;  /* 要素からはみ出た内容を非表示にする */
+}
+
+.logo a {  /* a要素のクリック領域がロゴ画像をぴったり覆うようにする */
+  display: block;  /* a要素のdisplayプロパティの初期値はinlineで縦幅と横幅を指定できないからblockに変更 */
+  /* 子要素のa要素と親要素の.logoの大きさを同じにするために下2行記述 */
+  width: 100%;
+  height: 100%;
+}
+
+.global-nav {
+  margin-top: 15px;
+  text-align: center;  /* 子要素のulをcenterにするため */
+}
+
+.global-nav .nav-item {  /* global-navの中のnav-item */
+  display: inline-block;  /* 横並びにする */
+  margin: 0 10px;
+}
+
+.global-nav .nav-item a {
+  display: inline-block;  /* 高さと幅を指定するために。これで高さと幅を指定してない親要素の.nav-itemの大きさがこの子要素に合わせて伸び縮みする */
+  width: 100px;
+  height: 30px;
+  line-height: 30px;  /* テキストを縦方向の中央寄せにする */
+  text-align: center;
+  border-radius: 8px;  /* 他にも色んな記述がある(P.41, 42確認) */
+  color: #666;
+  font-size: 1.3rem;
+  letter-spacing: 1px;  /* 文字の間隔を指定 */
+  transition: 0.15s;  /* スタイルの変化にかかる時間を指定。他の記述方法はP.45確認 */
+}
+
+.global-nav .nav-item.active a,  /* .nav-item.activeのようにスペースを空けずに連続でセレクタを書くと、nav-itemクラスとactiveクラスの両方がある要素に指定することができる */
+.global-nav .nav-item a:hover {
+  background-color: #d03c56;
+  color: #fff;
+}
+
+
 
 .wrapper {
   width: 970px;
@@ -24,20 +101,10 @@
   width: 275px;
 }
 
+
+
 .footer {
   width: 100%;
 }
 
 
-
-
-.header, .main, .sidemenu, .footer {
-  border: 1px solid #aaa;
-  background-color: #ccc;
-}
-.header, .footer {
-  height: 100px;
-}
-.main, .sidemenu {
-  height: 500px;
-}
