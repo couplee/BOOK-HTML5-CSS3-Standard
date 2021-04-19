@@ -1,0 +1,46 @@
+/* 子要素にfloatを適用すると、親要素がfloatを適用した子要素の高さを認識できなくなって、その子要素が親要素からはみ出してしまう。それを防止する方法が3つある。 */
+
+.border {
+  border: 2px solid blue;
+  margin-bottom: 20px;
+  opacity: 0.8;  /* 透明度 */
+}
+
+.left {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+}
+
+.right {
+  float: right;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+/* 方法1(HTMLにclearというdivクラス追記してから下記記述。これで直前までのfloatが解除されて、floatされた子要素の高さを親要素が認識できる) */
+/* .clear {
+  clear: both;
+} */
+
+/* 方法2(親要素に擬似要素を代入。この方法だとHTMLに追記しなくていい) */
+/* .border::after {
+  content: '';
+  display: block;
+  clear: both;
+} */
+
+/* 方法3(回り込みを解除したい親要素に毎回方法2を記述しなくて済むように、専用のクラス(clearfix)に切り出す。先にHTMLの親要素にclearfixクラスを追記) */
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.bottom {
+  width: 350px;
+  height: 30px;
+  background-color: green;
+}
